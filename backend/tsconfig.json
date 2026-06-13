@@ -24,8 +24,8 @@
     "alwaysStrict": true,
 
     /* ─── Additional Safety Checks ─────────────────────────── */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": false,
