@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PropertyStatus, ViewingStatus } from '@prisma/client';
+import { PropertyStatus, ViewingStatus, TaskStatus } from '@prisma/client';
 
 export const propertySchemas = {
   create: z.object({
@@ -58,5 +58,19 @@ export const viewingSchemas = {
 };
 
 export const taskSchemas = {
-  updateStatus: {},
+  updateStatus: z.object({
+    status: z.nativeEnum(TaskStatus, {
+      required_error: 'Status is required',
+      invalid_type_error: `Status must be one of: ${Object.values(TaskStatus).join(', ')}`,
+    }),
+  }),
+};
+
+export const searchSchemas = {
+  global: z.object({
+    q: z
+      .string({ required_error: 'Query parameter q is required' })
+      .min(2, 'Search query must be at least 2 characters long')
+      .max(100, 'Search query must not exceed 100 characters'),
+  }),
 };

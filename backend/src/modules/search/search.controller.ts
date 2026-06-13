@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { sendSuccess } from '../../shared/utils/response';
 import { SearchService } from './search.service';
 
 export class SearchController {
@@ -6,8 +7,9 @@ export class SearchController {
 
   executeGlobalSearch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      // Placeholder: execute global search
-      res.status(200).json({ success: true, message: 'executeGlobalSearch placeholder' });
+      const q = req.query.q as string;
+      const data = await this.searchService.execute(q);
+      sendSuccess(res, data);
     } catch (error) {
       next(error);
     }
