@@ -1,3 +1,6 @@
+import React from 'react';
+import { ViewingsList } from '../features/viewings';
+
 export function ViewingsPage() {
-  return <div>ViewingsPage Placeholder</div>;
+  return <ViewingsList />;
 }

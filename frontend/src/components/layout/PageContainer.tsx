@@ -10,21 +10,13 @@ export interface PageContainerProps {
 
 export function PageContainer({ title, description, action, children, className = '' }: PageContainerProps) {
   return (
-    <div className={`py-6 px-4 sm:px-6 lg:px-8 ${className}`}>
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+    <div className={`p-6 min-h-full ${className}`}>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5">
         <div>
-          <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-            {title}
-          </h1>
-          {description && (
-            <p className="mt-1 text-sm text-gray-500">{description}</p>
-          )}
+          <h1 className="text-lg font-bold text-gray-900">{title}</h1>
+          {description && <p className="text-xs text-gray-500 mt-0.5">{description}</p>}
         </div>
-        {action && (
-          <div className="mt-4 sm:ml-4 sm:mt-0 flex-shrink-0">
-            {action}
-          </div>
-        )}
+        {action && <div className="mt-3 sm:mt-0 flex-shrink-0">{action}</div>}
       </div>
       <div>{children}</div>
     </div>
