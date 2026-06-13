@@ -1,10 +1,17 @@
+import { ZodSchema } from 'zod';
 import { Request, Response, NextFunction } from 'express';
 
-export const validateRequest = (schema: any) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    // Placeholder: Execute request schema verification
-    // On success: call next()
-    // On failure: call sendError() / return 400
-    next();
+export const validate =
+  (schema: ZodSchema) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+      schema.parse(req.body);
+      next();
+    } catch (error: any) {
+      return res.status(400).json({
+        success: false,
+        error: 'Validation failed',
+        details: error.errors,
+      });
+    }
   };
-};

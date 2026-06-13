@@ -1,6 +1,16 @@
 import crypto from 'crypto';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'demo-secret-key-for-jwt-signing-12345';
+export interface JwtPayload {
+  id: string;
+  email: string;
+  role: string;
+  exp?: number;
+}
+const JWT_SECRET = process.env.JWT_SECRET as string;
+
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
 
 function base64url(str: string | Buffer): string {
   const base64 = typeof str === 'string' ? Buffer.from(str).toString('base64') : str.toString('base64');
@@ -21,8 +31,7 @@ export function sign(payload: object, expiresInSec: number = 86400): string {
     
   return `${headerEncoded}.${payloadEncoded}.${base64url(signature)}`;
 }
-
-export function verify(token: string): any {
+export function verify(token: string): JwtPayload {
   const [header, payload, signature] = token.split('.');
   if (!header || !payload || !signature) throw new Error('Invalid token');
   
