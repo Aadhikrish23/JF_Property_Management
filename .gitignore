@@ -1,1 +1,31 @@
+# ─── Compiled output ────────────────────────────────────────────────────────
+dist/
+
+# ─── Dependencies ───────────────────────────────────────────────────────────
+node_modules/
+
+# ─── Environment secrets ────────────────────────────────────────────────────
+# Never commit real environment files.
+.env
+.env.local
+.env.production
+
+# ─── Prisma generated client ────────────────────────────────────────────────
+# Regenerated on every `prisma generate` run.
+src/generated/
+
+# ─── Logs ───────────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+
+# ─── OS metadata ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Editor metadata ────────────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+
+# ─── Internal tooling (assessment workspace) ────────────────────────────────
 merge/

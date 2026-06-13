@@ -305,52 +305,20 @@ GET /search
 
 # 5. Recommended Folder Structure
 
-## Frontend
+## Project Structure
 
 ```text
-src/
-
-├── app/
-│   ├── router/
-│   └── providers/
-│
-├── pages/
-│   ├── dashboard/
-│   ├── properties/
-│   ├── clients/
-│   └── viewings/
-│
-├── features/
-│   ├── dashboard/
-│   ├── properties/
-│   ├── clients/
-│   ├── viewings/
-│   ├── tasks/
-│   └── notifications/
-│
-├── components/
-│   ├── ui/
-│   ├── layout/
-│   └── shared/
-│
-├── hooks/
-│
-├── services/
-│
-├── types/
-│
-├── utils/
-│
-└── constants/
+├── docs/       # Project artifacts and design documents
+├── backend/    # Express + Prisma backend
+└── frontend/   # React application (to be implemented)
 ```
 
 ---
 
-## Backend
+## Backend (Inside /backend)
 
 ```text
 src/
-
 ├── modules/
 │   ├── dashboard/
 │   ├── properties/
@@ -359,21 +327,45 @@ src/
 │   ├── tasks/
 │   ├── notifications/
 │   └── search/
-│
 ├── prisma/
-│
 ├── middleware/
-│
 ├── validators/
-│
 ├── shared/
-│
 ├── config/
-│
 └── server.ts
 ```
 
 ---
+
+## Frontend (Inside /frontend - To Be Implemented)
+
+```text
+src/
+├── app/
+│   ├── router/
+│   └── providers/
+├── pages/
+│   ├── dashboard/
+│   ├── properties/
+│   ├── clients/
+│   └── viewings/
+├── features/
+│   ├── dashboard/
+│   ├── properties/
+│   ├── clients/
+│   ├── viewings/
+│   ├── tasks/
+│   └── notifications/
+├── components/
+│   ├── ui/
+│   ├── layout/
+│   └── shared/
+├── hooks/
+├── services/
+├── types/
+├── utils/
+└── constants/
+```
 
 # 6. Database Schema Design
 
