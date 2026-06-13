@@ -756,4 +756,29 @@ over:
 * Enterprise-scale patterns
 * Premature optimization
 
+# 11. Security Considerations
+
+The assessment reviewer explicitly indicated that security is an important evaluation criterion.
+
+The MVP implementation will therefore include:
+
+- Request validation
+- Server-side input validation
+- Proper HTTP status codes
+- Centralized error handling
+- Environment variable configuration
+- ORM-based database access through Prisma
+- Basic API hardening practices
+
+Out of Scope:
+
+- Authentication
+- Authorization
+- RBAC
+- OAuth
+- MFA
+- Advanced security infrastructure
+
+These are excluded due to assessment scope and timeline constraints.
+
 The resulting solution is a pragmatic, assessment-appropriate architecture that accurately reproduces the supplied dashboard experience, demonstrates competency in React, Node.js, PostgreSQL, and Prisma, and remains achievable by a single engineer within a 24-hour implementation window.

@@ -382,6 +382,21 @@ The solution is successful if it:
 
 ---
 
+### Security Requirements
+
+The implementation should demonstrate secure development practices including:
+
+- Input validation on all create/update endpoints
+- Proper error handling
+- Prisma ORM usage to reduce SQL injection risks
+- Environment-based configuration management
+- Request payload validation
+- Avoid exposing sensitive internal information in API responses
+
+Security considerations are a primary evaluation criterion for this assessment.
+
+---
+
 # 14. Recommended Development Sequence
 
 ## Phase 1
