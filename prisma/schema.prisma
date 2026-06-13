@@ -1,0 +1,159 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum PropertyStatus {
+  ACTIVE
+  UNDER_OFFER
+  SOLD
+}
+
+enum ViewingStatus {
+  BOOKED
+  CONFIRMED
+  COMPLETED
+}
+
+enum TaskType {
+  VIEWING
+  FEEDBACK
+  OFFER
+  APPRAISAL
+  TODO
+  PROGRESSION
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum CalendarEventStatus {
+  CONFIRMED
+  PENDING
+  NEW
+  DUE_TODAY
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @db.VarChar(100)
+  email     String   @unique(map: "IDX_users_email") @db.VarChar(255)
+  role      String   @db.VarChar(50)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp
+  tasks     Task[]
+
+  @@map("users")
+  @@index([role], map: "IDX_users_role")
+}
+
+model Property {
+  id        String         @id @default(uuid()) @db.Uuid
+  title     String         @db.VarChar(255)
+  address   String         @db.Text
+  status    PropertyStatus @default(ACTIVE)
+  createdAt DateTime       @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime       @updatedAt @map("updated_at") @db.Timestamp
+  viewings  Viewing[]
+
+  @@map("properties")
+  @@index([status], map: "IDX_properties_status")
+  @@index([title], map: "IDX_properties_title")
+}
+
+model Client {
+  id        String    @id @default(uuid()) @db.Uuid
+  name      String    @db.VarChar(100)
+  email     String?   @db.VarChar(255)
+  phone     String?   @db.VarChar(30)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp
+  viewings  Viewing[]
+
+  @@map("clients")
+  @@index([name], map: "IDX_clients_name")
+  @@index([email], map: "IDX_clients_email")
+}
+
+model Viewing {
+  id         String        @id @default(uuid()) @db.Uuid
+  propertyId String        @map("property_id") @db.Uuid
+  clientId   String        @map("client_id") @db.Uuid
+  dateTime   DateTime      @map("date_time") @db.Timestamp
+  status     ViewingStatus @default(BOOKED)
+  createdAt  DateTime      @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime      @updatedAt @map("updated_at") @db.Timestamp
+
+  property Property @relation(fields: [propertyId], references: [id])
+  client   Client   @relation(fields: [clientId], references: [id])
+
+  @@map("viewings")
+  @@index([propertyId], map: "IDX_viewings_property")
+  @@index([clientId], map: "IDX_viewings_client")
+  @@index([dateTime], map: "IDX_viewings_datetime")
+  @@index([status], map: "IDX_viewings_status")
+}
+
+model Task {
+  id             String       @id @default(uuid()) @db.Uuid
+  title          String       @db.VarChar(255)
+  type           TaskType
+  status         TaskStatus   @default(PENDING)
+  priority       TaskPriority @default(MEDIUM)
+  dueDate        DateTime?    @map("due_date") @db.Timestamp
+  assignedUserId String?      @map("assigned_user_id") @db.Uuid
+  createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamp
+  updatedAt      DateTime     @updatedAt @map("updated_at") @db.Timestamp
+
+  assignedUser User? @relation(fields: [assignedUserId], references: [id])
+
+  @@map("tasks")
+  @@index([type], map: "IDX_tasks_type")
+  @@index([status], map: "IDX_tasks_status")
+  @@index([priority], map: "IDX_tasks_priority")
+  @@index([dueDate], map: "IDX_tasks_due_date")
+  @@index([assignedUserId], map: "IDX_tasks_assigned_user")
+}
+
+model Notification {
+  id          String   @id @default(uuid()) @db.Uuid
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  type        String   @db.VarChar(50)
+  isRead      Boolean  @default(false) @map("is_read")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp
+
+  @@map("notifications")
+  @@index([type], map: "IDX_notifications_type")
+  @@index([isRead], map: "IDX_notifications_read")
+  @@index([createdAt], map: "IDX_notifications_created")
+}
+
+model CalendarEvent {
+  id        String              @id @default(uuid()) @db.Uuid
+  title     String              @db.VarChar(255)
+  dateTime  DateTime            @map("date_time") @db.Timestamp
+  type      String              @db.VarChar(50)
+  status    CalendarEventStatus @default(NEW)
+  createdAt DateTime            @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime            @updatedAt @map("updated_at") @db.Timestamp
+
+  @@map("calendar_events")
+  @@index([dateTime], map: "IDX_events_datetime")
+  @@index([status], map: "IDX_events_status")
+  @@index([type], map: "IDX_events_type")
+}
