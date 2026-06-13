@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PropertyStatus } from '@prisma/client';
+import { PropertyStatus, ViewingStatus } from '@prisma/client';
 
 export const propertySchemas = {
   create: z.object({
@@ -40,7 +40,21 @@ export const clientSchemas = {
 };
 
 export const viewingSchemas = {
-  create: {},
+  create: z.object({
+    propertyId: z
+      .string({ required_error: 'Property ID is required' })
+      .uuid('Property ID must be a valid UUID'),
+    clientId: z
+      .string({ required_error: 'Client ID is required' })
+      .uuid('Client ID must be a valid UUID'),
+    dateTime: z
+      .string({ required_error: 'Date and time is required' })
+      .datetime({ message: 'Date and time must be a valid ISO 8601 datetime' }),
+    status: z.nativeEnum(ViewingStatus, {
+      required_error: 'Status is required',
+      invalid_type_error: `Status must be one of: ${Object.values(ViewingStatus).join(', ')}`,
+    }),
+  }),
 };
 
 export const taskSchemas = {
