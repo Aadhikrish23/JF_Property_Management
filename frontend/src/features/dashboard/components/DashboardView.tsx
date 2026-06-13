@@ -47,16 +47,16 @@ export function DashboardView() {
       <QuickActions />
 
       {/* Main 2-column layout: left content (2/3) | right panels (1/3) */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
         {/* LEFT: Chase-Ups + Workflow stacked */}
-        <div className="xl:col-span-2 flex flex-col gap-4">
+        <div className="lg:col-span-2 flex flex-col gap-4">
           <ChaseUpsPanel tasks={dashboardData.chaseUps} />
           <WorkflowCommandCentre tasks={dashboardData.workflowTasks} />
         </div>
 
         {/* RIGHT: Notifications + Upcoming stacked */}
-        <div className="xl:col-span-1 flex flex-col gap-4">
+        <div className="lg:col-span-1 flex flex-col gap-4">
           <NotificationsPanel notifications={dashboardData.notifications} />
           <UpcomingActivitiesPanel activities={dashboardData.upcomingActivities} />
         </div>

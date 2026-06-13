@@ -50,28 +50,44 @@ export function ClientsList() {
           />
         ) : (
           <>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeader>Name</TableHeader>
-                  <TableHeader>Email</TableHeader>
-                  <TableHeader>Phone</TableHeader>
-                  <TableHeader>Added</TableHeader>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data!.data.items.map((client) => (
-                  <TableRow key={client.id} className="hover:bg-gray-50 transition-colors">
-                    <TableCell className="font-semibold text-gray-900">{client.name}</TableCell>
-                    <TableCell className="text-gray-600">{client.email || '—'}</TableCell>
-                    <TableCell className="text-gray-600">{client.phone || '—'}</TableCell>
-                    <TableCell className="text-gray-500">
-                      {new Date(client.createdAt).toLocaleDateString('en-GB')}
-                    </TableCell>
+            <div className="hidden md:block">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableHeader>Name</TableHeader>
+                    <TableHeader>Email</TableHeader>
+                    <TableHeader>Phone</TableHeader>
+                    <TableHeader>Added</TableHeader>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {data!.data.items.map((client) => (
+                    <TableRow key={client.id} className="hover:bg-gray-50 transition-colors">
+                      <TableCell className="font-semibold text-gray-900">{client.name}</TableCell>
+                      <TableCell className="text-gray-600">{client.email || '—'}</TableCell>
+                      <TableCell className="text-gray-600">{client.phone || '—'}</TableCell>
+                      <TableCell className="text-gray-500">
+                        {new Date(client.createdAt).toLocaleDateString('en-GB')}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 p-4 md:hidden">
+              {data!.data.items.map((client) => (
+                <div key={client.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm flex flex-col gap-2">
+                  <div className="font-bold text-gray-900 leading-tight">{client.name}</div>
+                  {client.email && <div className="text-sm text-gray-600">Email: {client.email}</div>}
+                  {client.phone && <div className="text-sm text-gray-600">Phone: {client.phone}</div>}
+                  <div className="text-xs text-gray-500 mt-2">
+                    Added: {new Date(client.createdAt).toLocaleDateString('en-GB')}
+                  </div>
+                </div>
+              ))}
+            </div>
+
             {data && data.data.pagination.total > 10 && (
               <Pagination
                 currentPage={data.data.pagination.page}

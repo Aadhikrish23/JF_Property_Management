@@ -43,10 +43,10 @@ export function WorkflowCommandCentre({ tasks }: { tasks: Task[] }) {
   }, {});
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200">
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200">
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-0">
-        <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+        <h2 className="text-xs font-bold text-gray-500  dark:text-white uppercase tracking-wider flex items-center gap-2">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3.5 h-3.5">
             <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" />
             <line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" />
@@ -63,8 +63,8 @@ export function WorkflowCommandCentre({ tasks }: { tasks: Task[] }) {
       </div>
 
       {/* Tabs */}
-      <div className="overflow-x-auto">
-        <div className="flex border-b border-gray-200 px-4 mt-3 gap-0 min-w-max">
+      <div className="w-full">
+        <div className="flex flex-wrap border-b border-gray-200 px-4 mt-3 gap-y-1 gap-x-0">
           {WORKFLOW_TABS.map((tab) => {
             const isActive = tab.id === activeTab;
             const count = tabCounts[tab.id];
@@ -121,7 +121,7 @@ export function WorkflowCommandCentre({ tasks }: { tasks: Task[] }) {
 
               {/* Task info */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">{task.title}</p>
+                <p className="text-sm font-medium text-gray-900  dark:text-white truncate">{task.title}</p>
                 <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                   <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${TYPE_COLORS[task.type] ?? 'bg-gray-100 text-gray-600'}`}>
                     {task.type.charAt(0) + task.type.slice(1).toLowerCase()}

@@ -1,6 +1,11 @@
 import { PrismaClient, PropertyStatus, ViewingStatus, TaskType, TaskStatus, TaskPriority, CalendarEventStatus } from '@prisma/client';
+import crypto from 'crypto';
 
 const prisma = new PrismaClient();
+
+function hashPassword(password: string): string {
+  return crypto.createHash('sha256').update(password).digest('hex');
+}
 
 async function main() {
   console.log('Clearing existing database records...');
@@ -16,11 +21,14 @@ async function main() {
 
   console.log('Seeding database tables...');
 
+  const demoPasswordHash = hashPassword('demo123');
+
   // 1. Seed Users (5 CRM Staff Roles)
   const branchManager = await prisma.user.create({
     data: {
       name: 'Marcus Vance',
-      email: 'marcus.vance@branch.com',
+      email: 'manager@crm.local',
+      password: demoPasswordHash,
       role: 'Branch Manager',
     },
   });
@@ -28,7 +36,8 @@ async function main() {
   const seniorSalesAgent = await prisma.user.create({
     data: {
       name: 'Sarah Calvert',
-      email: 'sarah.calvert@branch.com',
+      email: 'agent@crm.local',
+      password: demoPasswordHash,
       role: 'Senior Sales Agent',
     },
   });
@@ -36,7 +45,8 @@ async function main() {
   const salesAgent = await prisma.user.create({
     data: {
       name: 'David Miller',
-      email: 'david.miller@branch.com',
+      email: 'agent2@crm.local',
+      password: demoPasswordHash,
       role: 'Sales Agent',
     },
   });
@@ -44,7 +54,8 @@ async function main() {
   const viewingAgent = await prisma.user.create({
     data: {
       name: 'Emma Watson',
-      email: 'emma.watson@branch.com',
+      email: 'viewing@crm.local',
+      password: demoPasswordHash,
       role: 'Viewing Agent',
     },
   });
@@ -52,7 +63,8 @@ async function main() {
   const administrator = await prisma.user.create({
     data: {
       name: 'Alex Thorne',
-      email: 'alex.thorne@branch.com',
+      email: 'admin@crm.local',
+      password: demoPasswordHash,
       role: 'Administrator',
     },
   });

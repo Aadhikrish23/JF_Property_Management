@@ -35,14 +35,19 @@ if (ENV.NODE_ENV === 'development') {
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
+import authRouter from './modules/auth/auth.routes';
+import { requireAuth } from './middleware/auth.middleware';
+
 // 2. Register API Module Routes
-app.use('/api/v1/dashboard', dashboardRouter);
-app.use('/api/v1/properties', propertiesRouter);
-app.use('/api/v1/clients', clientsRouter);
-app.use('/api/v1/viewings', viewingsRouter);
-app.use('/api/v1/tasks', tasksRouter);
-app.use('/api/v1/notifications', notificationsRouter);
-app.use('/api/v1/search', searchRouter);
+app.use('/api/v1/auth', authRouter);
+
+app.use('/api/v1/dashboard', requireAuth, dashboardRouter);
+app.use('/api/v1/properties', requireAuth, propertiesRouter);
+app.use('/api/v1/clients', requireAuth, clientsRouter);
+app.use('/api/v1/viewings', requireAuth, viewingsRouter);
+app.use('/api/v1/tasks', requireAuth, tasksRouter);
+app.use('/api/v1/notifications', requireAuth, notificationsRouter);
+app.use('/api/v1/search', requireAuth, searchRouter);
 
 // 3. Centralized Error Handling Middleware (must be registered last)
 app.use(errorHandler);

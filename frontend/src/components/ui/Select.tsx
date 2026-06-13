@@ -1,4 +1,4 @@
-import React, { SelectHTMLAttributes, forwardRef } from 'react';
+import React, { type SelectHTMLAttributes, forwardRef } from 'react';
 
 export interface SelectOption {
   value: string | number;
@@ -16,18 +16,18 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={id} className="block text-xs font-medium text-gray-600 mb-1">
+          <label htmlFor={id} className="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
             {label}
           </label>
         )}
         <select
           ref={ref}
           id={id}
-          className={`block w-full rounded-lg border text-sm px-3 py-2 bg-white shadow-sm transition-colors
+          className={`block w-full rounded-lg border text-sm px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm transition-colors
             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
             ${error
               ? 'border-red-300 focus:border-red-500 focus:ring-red-400'
-              : 'border-gray-300'
+              : 'border-gray-300 dark:border-gray-600'
             } ${className}`}
           {...props}
         >
@@ -37,7 +37,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             </option>
           ))}
         </select>
-        {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+        {error && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error}</p>}
       </div>
     );
   }

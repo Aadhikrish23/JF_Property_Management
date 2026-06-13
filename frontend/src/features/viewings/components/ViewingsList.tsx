@@ -67,39 +67,62 @@ export function ViewingsList() {
           />
         ) : (
           <>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeader>Date & Time</TableHeader>
-                  <TableHeader>Property</TableHeader>
-                  <TableHeader>Client</TableHeader>
-                  <TableHeader>Status</TableHeader>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data!.data.items.map((viewing) => (
-                  <TableRow key={viewing.id} className="hover:bg-gray-50 transition-colors">
-                    <TableCell className="font-semibold text-gray-900">
+            <div className="hidden md:block">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableHeader>Date & Time</TableHeader>
+                    <TableHeader>Property</TableHeader>
+                    <TableHeader>Client</TableHeader>
+                    <TableHeader>Status</TableHeader>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data!.data.items.map((viewing) => (
+                    <TableRow key={viewing.id} className="hover:bg-gray-50 transition-colors">
+                      <TableCell className="font-semibold text-gray-900">
+                        {new Date(viewing.dateTime).toLocaleString('en-GB', {
+                          day: '2-digit', month: 'short', year: 'numeric',
+                          hour: '2-digit', minute: '2-digit',
+                        })}
+                      </TableCell>
+                      <TableCell className="text-gray-700">
+                        {viewing.property?.title || '—'}
+                      </TableCell>
+                      <TableCell className="text-gray-700">
+                        {viewing.client?.name || '—'}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={getStatusVariant(viewing.status)}>
+                          {formatStatus(viewing.status)}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 p-4 md:hidden">
+              {data!.data.items.map((viewing) => (
+                <div key={viewing.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm flex flex-col gap-2">
+                  <div className="flex justify-between items-start">
+                    <span className="font-bold text-gray-900 leading-tight">
                       {new Date(viewing.dateTime).toLocaleString('en-GB', {
                         day: '2-digit', month: 'short', year: 'numeric',
                         hour: '2-digit', minute: '2-digit',
                       })}
-                    </TableCell>
-                    <TableCell className="text-gray-700">
-                      {viewing.property?.title || '—'}
-                    </TableCell>
-                    <TableCell className="text-gray-700">
-                      {viewing.client?.name || '—'}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={getStatusVariant(viewing.status)}>
-                        {formatStatus(viewing.status)}
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                    </span>
+                    <Badge variant={getStatusVariant(viewing.status)}>
+                      {formatStatus(viewing.status)}
+                    </Badge>
+                  </div>
+                  <div className="text-sm text-gray-600">Property: {viewing.property?.title || '—'}</div>
+                  <div className="text-sm text-gray-600">Client: {viewing.client?.name || '—'}</div>
+                </div>
+              ))}
+            </div>
+
             {data && data.data.pagination.total > 10 && (
               <Pagination
                 currentPage={data.data.pagination.page}

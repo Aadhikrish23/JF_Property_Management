@@ -98,49 +98,84 @@ export function TasksList() {
           <EmptyState title="No tasks found" description="Try adjusting your filters." />
         ) : (
           <>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeader>Title</TableHeader>
-                  <TableHeader>Type</TableHeader>
-                  <TableHeader>Priority</TableHeader>
-                  <TableHeader>Due Date</TableHeader>
-                  <TableHeader>Status / Action</TableHeader>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data!.data.items.map((task) => (
-                  <TableRow key={task.id} className="hover:bg-gray-50 transition-colors">
-                    <TableCell className="font-semibold text-gray-900">{task.title}</TableCell>
-                    <TableCell>
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${TYPE_COLORS[task.type] ?? 'bg-gray-100 text-gray-600'}`}>
-                        {task.type.charAt(0) + task.type.slice(1).toLowerCase()}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${PRIORITY_COLORS[task.priority] ?? 'bg-gray-100 text-gray-600'}`}>
-                        {task.priority}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-gray-500">
-                      {task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-GB') : '—'}
-                    </TableCell>
-                    <TableCell>
-                       <select
-                         className="text-sm rounded border-gray-300 py-1 pl-2 pr-6 focus:ring-blue-500 focus:border-blue-500 shadow-sm disabled:opacity-50"
-                         value={task.status}
-                         onChange={(e) => handleStatusChange(task.id, e.target.value as TaskStatus)}
-                         disabled={updateMutation.isPending}
-                       >
-                         <option value="PENDING">Pending</option>
-                         <option value="IN_PROGRESS">In Progress</option>
-                         <option value="COMPLETED">Completed</option>
-                       </select>
-                    </TableCell>
+            <div className="hidden md:block">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableHeader>Title</TableHeader>
+                    <TableHeader>Type</TableHeader>
+                    <TableHeader>Priority</TableHeader>
+                    <TableHeader>Due Date</TableHeader>
+                    <TableHeader>Status / Action</TableHeader>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {data!.data.items.map((task) => (
+                    <TableRow key={task.id} className="hover:bg-gray-50 transition-colors">
+                      <TableCell className="font-semibold text-gray-900">{task.title}</TableCell>
+                      <TableCell>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${TYPE_COLORS[task.type] ?? 'bg-gray-100 text-gray-600'}`}>
+                          {task.type.charAt(0) + task.type.slice(1).toLowerCase()}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${PRIORITY_COLORS[task.priority] ?? 'bg-gray-100 text-gray-600'}`}>
+                          {task.priority}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-gray-500">
+                        {task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-GB') : '—'}
+                      </TableCell>
+                      <TableCell>
+                         <select
+                           className="text-sm rounded border-gray-300 py-1 pl-2 pr-6 focus:ring-blue-500 focus:border-blue-500 shadow-sm disabled:opacity-50"
+                           value={task.status}
+                           onChange={(e) => handleStatusChange(task.id, e.target.value as TaskStatus)}
+                           disabled={updateMutation.isPending}
+                         >
+                           <option value="PENDING">Pending</option>
+                           <option value="IN_PROGRESS">In Progress</option>
+                           <option value="COMPLETED">Completed</option>
+                         </select>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 p-4 md:hidden">
+              {data!.data.items.map((task) => (
+                <div key={task.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm flex flex-col gap-2">
+                  <div className="flex justify-between items-start">
+                    <span className="font-bold text-gray-900 leading-tight">{task.title}</span>
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${PRIORITY_COLORS[task.priority] ?? 'bg-gray-100 text-gray-600'}`}>
+                      {task.priority}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${TYPE_COLORS[task.type] ?? 'bg-gray-100 text-gray-600'}`}>
+                      {task.type.charAt(0) + task.type.slice(1).toLowerCase()}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      Due: {task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-GB') : '—'}
+                    </span>
+                  </div>
+                  <div className="mt-2 border-t border-gray-100 pt-2">
+                    <select
+                      className="w-full text-sm rounded border-gray-300 py-1 pl-2 pr-6 focus:ring-blue-500 focus:border-blue-500 shadow-sm disabled:opacity-50"
+                      value={task.status}
+                      onChange={(e) => handleStatusChange(task.id, e.target.value as TaskStatus)}
+                      disabled={updateMutation.isPending}
+                    >
+                      <option value="PENDING">Pending</option>
+                      <option value="IN_PROGRESS">In Progress</option>
+                      <option value="COMPLETED">Completed</option>
+                    </select>
+                  </div>
+                </div>
+              ))}
+            </div>
             {data && data.data.pagination.total > 10 && (
               <Pagination
                 currentPage={data.data.pagination.page}

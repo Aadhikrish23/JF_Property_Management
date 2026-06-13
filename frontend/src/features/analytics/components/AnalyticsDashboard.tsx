@@ -26,20 +26,20 @@ export function AnalyticsDashboard() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="p-6">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Total Properties</h3>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{properties?.data.pagination.total || 0}</p>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Properties</h3>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">{properties?.data.pagination.total || 0}</p>
           </Card>
           <Card className="p-6">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Total Clients</h3>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{clients?.data.pagination.total || 0}</p>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Clients</h3>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">{clients?.data.pagination.total || 0}</p>
           </Card>
           <Card className="p-6">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Total Viewings</h3>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{viewings?.data.pagination.total || 0}</p>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Viewings</h3>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">{viewings?.data.pagination.total || 0}</p>
           </Card>
           <Card className="p-6">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Total Tasks</h3>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{tasks?.data.pagination.total || 0}</p>
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Tasks</h3>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">{tasks?.data.pagination.total || 0}</p>
           </Card>
         </div>
       )}

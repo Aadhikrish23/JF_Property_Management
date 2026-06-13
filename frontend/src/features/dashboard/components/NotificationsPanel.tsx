@@ -26,10 +26,10 @@ function timeAgo(dateStr: string): string {
 
 export function NotificationsPanel({ notifications }: { notifications: Notification[] }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 flex flex-col h-full">
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-        <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+        <h2 className="text-xs font-bold text-gray-500 dark:text-white uppercase tracking-wider flex items-center gap-2">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3.5 h-3.5">
             <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
             <path d="M13.73 21a2 2 0 01-3.46 0" />
@@ -47,7 +47,7 @@ export function NotificationsPanel({ notifications }: { notifications: Notificat
       {/* List */}
       {notifications.length === 0 ? (
         <div className="flex flex-1 items-center justify-center py-12">
-          <p className="text-xs text-gray-400">All caught up!</p>
+          <p className="text-xs text-gray-400 dark:text-white">All caught up!</p>
         </div>
       ) : (
         <ul className="flex-1 overflow-y-auto divide-y divide-gray-50">
@@ -59,9 +59,9 @@ export function NotificationsPanel({ notifications }: { notifications: Notificat
               </div>
               {/* Content */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900 leading-snug">{n.title}</p>
-                <p className="text-xs text-gray-500 mt-0.5 leading-snug line-clamp-2">{n.description}</p>
-                <p className="text-xs text-gray-400 mt-1">{timeAgo(n.createdAt)}</p>
+                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100  leading-snug">{n.title}</p>
+                <p className="text-xs text-gray-500 dark:text-white mt-0.5 leading-snug line-clamp-2">{n.description}</p>
+                <p className="text-xs text-gray-400 dark:text-white mt-1">{timeAgo(n.createdAt)}</p>
               </div>
             </li>
           ))}

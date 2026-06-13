@@ -19,7 +19,7 @@ function getStatusConfig(status: string) {
 
 export function UpcomingActivitiesPanel({ activities }: { activities: UpcomingActivity[] }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 flex flex-col h-full">
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
         <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">

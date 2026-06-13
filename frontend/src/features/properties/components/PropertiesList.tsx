@@ -76,32 +76,54 @@ export function PropertiesList() {
           />
         ) : (
           <>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeader>Title</TableHeader>
-                  <TableHeader>Address</TableHeader>
-                  <TableHeader>Status</TableHeader>
-                  <TableHeader>Added</TableHeader>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data!.data.items.map((property) => (
-                  <TableRow key={property.id} className="hover:bg-gray-50 transition-colors">
-                    <TableCell className="font-semibold text-gray-900">{property.title}</TableCell>
-                    <TableCell className="text-gray-600">{property.address}</TableCell>
-                    <TableCell>
-                      <Badge variant={getStatusVariant(property.status)}>
-                        {formatStatus(property.status)}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-gray-500">
-                      {new Date(property.createdAt).toLocaleDateString('en-GB')}
-                    </TableCell>
+            {/* Desktop / Tablet Table */}
+            <div className="hidden md:block">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableHeader>Title</TableHeader>
+                    <TableHeader>Address</TableHeader>
+                    <TableHeader>Status</TableHeader>
+                    <TableHeader>Added</TableHeader>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {data!.data.items.map((property) => (
+                    <TableRow key={property.id} className="hover:bg-gray-50 transition-colors">
+                      <TableCell className="font-semibold text-gray-900">{property.title}</TableCell>
+                      <TableCell className="text-gray-600">{property.address}</TableCell>
+                      <TableCell>
+                        <Badge variant={getStatusVariant(property.status)}>
+                          {formatStatus(property.status)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-gray-500">
+                        {new Date(property.createdAt).toLocaleDateString('en-GB')}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            {/* Mobile Card List */}
+            <div className="grid grid-cols-1 gap-4 p-4 md:hidden">
+              {data!.data.items.map((property) => (
+                <div key={property.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm flex flex-col gap-2">
+                  <div className="flex justify-between items-start">
+                    <span className="font-bold text-gray-900 leading-tight">{property.title}</span>
+                    <Badge variant={getStatusVariant(property.status)}>
+                      {formatStatus(property.status)}
+                    </Badge>
+                  </div>
+                  <div className="text-sm text-gray-600">{property.address}</div>
+                  <div className="text-xs text-gray-500 mt-2">
+                    Added: {new Date(property.createdAt).toLocaleDateString('en-GB')}
+                  </div>
+                </div>
+              ))}
+            </div>
+
             {data && data.data.pagination.total > 10 && (
               <Pagination
                 currentPage={data.data.pagination.page}
