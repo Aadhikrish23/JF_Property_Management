@@ -18,18 +18,6 @@ import searchRouter from './modules/search/search.routes';
 
 const app: Application = express();
 
-app.get('/', (_req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'JF Property Management API',
-  });
-});
-
-app.get('/api/v1/health', (_req, res) => {
-  res.status(200).json({
-    status: 'healthy',
-  });
-});
 
 // 1. Register Global Middlewares
 
@@ -50,6 +38,20 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 import authRouter from './modules/auth/auth.routes';
 import { requireAuth } from './middleware/auth.middleware';
+
+
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'JF Property Management API',
+  });
+});
+
+app.get('/api/v1/health', (_req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+  });
+});
 
 // 2. Register API Module Routes
 app.use('/api/v1/auth', authRouter);
