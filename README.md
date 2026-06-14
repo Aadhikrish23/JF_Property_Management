@@ -16,9 +16,9 @@ Project documentation is available under /docs.
 ## Project Structure
 
 /docs      -> Project artifacts and design documents
----
+
 /backend   -> Express + Prisma backend
----
+
 /frontend  -> React + TailwindCSS
 # JF Property Management CRM
 A professional, single-tenant Customer Relationship Management (CRM) dashboard designed for estate agencies and property management professionals to manage properties, clients, viewings, tasks, and notifications. 
