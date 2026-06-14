@@ -25,7 +25,7 @@ app.get('/', (_req, res) => {
   });
 });
 
-app.get('/health', (_req, res) => {
+app.get('/api/v1/health', (_req, res) => {
   res.status(200).json({
     status: 'healthy',
   });
