@@ -320,6 +320,18 @@ PostgreSQL
 
 ---
 
+## Authentication
+
+The MVP includes JWT-based authentication with:
+
+- Login page
+- Protected routes
+- JWT access tokens
+- Axios authentication interceptor
+- Logout functionality
+
+Authentication is intentionally simplified for assessment purposes and is not intended as a production-grade identity system.
+
 # 11. Out of Scope Features
 
 The following must NOT be implemented:

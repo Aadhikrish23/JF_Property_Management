@@ -12,6 +12,7 @@ This API supports the approved MVP dashboard and associated CRUD functionality.
 
 Scope includes:
 
+* Authentication
 * Dashboard
 * Properties
 * Clients
@@ -22,9 +23,6 @@ Scope includes:
 * Calendar Events
 
 Excluded:
-
-* Authentication
-* Authorization
 * AI services
 * Email services
 * Real-time communication
@@ -33,7 +31,7 @@ Excluded:
 
 ---
 
-# API Standards
+# 2. API Standards
 
 ## Base URL
 
@@ -51,6 +49,13 @@ Content-Type: application/json
 
 ---
 
+
+## Authorization
+
+Protected endpoints require:
+
+```http
+Authorization: Bearer <jwt>
 ## Success Response Format
 
 ```json
@@ -73,16 +78,82 @@ Content-Type: application/json
   }
 }
 ```
+---
+
+# 3. Authentication Module
+
+## POST /auth/login
+
+### Purpose
+
+Authenticate a user and issue a JWT access token.
+
+### Request
+
+```json
+{
+  "email": "admin@crm.local",
+  "password": "demo123"
+}
+
+```
+---
+### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "token": "<jwt>",
+    "user": {
+      "id": "uuid",
+      "name": "Alex Thorne",
+      "email": "admin@crm.local"
+    }
+  }
+}
+```
+
+---
+### Validation Rules
+
+#### email
+
+```text
+Required
+Must be valid email
+```
+
+#### password
+
+```text
+Required
+Minimum Length: 6
+```
 
 ---
 
-# 2. Dashboard Module
+### Errors
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "INVALID_CREDENTIALS",
+    "message": "Invalid email or password"
+  }
+}
+```
+
+
+
+# 4. Dashboard Module
 
 ---
 
-# GET /dashboard
+## GET /dashboard
 
-## Purpose
+### Purpose
 
 Retrieve all dashboard data in a single request.
 
@@ -95,7 +166,7 @@ Supports:
 
 ---
 
-## Request
+### Request
 
 ```http
 GET /api/v1/dashboard
@@ -103,7 +174,7 @@ GET /api/v1/dashboard
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -119,13 +190,13 @@ GET /api/v1/dashboard
 
 ---
 
-## Validation
+### Validation
 
 None
 
 ---
 
-## Errors
+### Errors
 
 ```json
 {
@@ -139,19 +210,19 @@ None
 
 ---
 
-# 3. Properties Module
+# 5. Properties Module
 
 ---
 
-# GET /properties
+## GET /properties
 
-## Purpose
+### Purpose
 
 Retrieve property list.
 
 ---
 
-## Query Parameters
+### Query Parameters
 
 | Parameter | Type    | Required |
 | --------- | ------- | -------- |
@@ -162,7 +233,7 @@ Retrieve property list.
 
 ---
 
-## Example
+### Example
 
 ```http
 GET /api/v1/properties?page=1&limit=20
@@ -170,7 +241,7 @@ GET /api/v1/properties?page=1&limit=20
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -195,22 +266,22 @@ GET /api/v1/properties?page=1&limit=20
 
 ---
 
-## Validation Rules
+### Validation Rules
 
-### page
+#### page
 
 ```text
 Minimum: 1
 ```
 
-### limit
+#### limit
 
 ```text
 Minimum: 1
 Maximum: 100
 ```
 
-### status
+#### status
 
 Allowed:
 
@@ -222,15 +293,15 @@ SOLD
 
 ---
 
-# GET /properties/{id}
+## GET /properties/{id}
 
-## Purpose
+### Purpose
 
 Retrieve property details.
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -246,7 +317,7 @@ Retrieve property details.
 
 ---
 
-## Errors
+### Errors
 
 ```json
 {
@@ -260,15 +331,15 @@ Retrieve property details.
 
 ---
 
-# POST /properties
+## POST /properties
 
-## Purpose
+### Purpose
 
 Create property.
 
 ---
 
-## Request Payload
+### Request Payload
 
 ```json
 {
@@ -280,22 +351,22 @@ Create property.
 
 ---
 
-## Validation Rules
+### Validation Rules
 
-### title
+#### title
 
 ```text
 Required
 Max Length: 255
 ```
 
-### address
+#### address
 
 ```text
 Required
 ```
 
-### status
+#### status
 
 Allowed:
 
@@ -307,7 +378,7 @@ SOLD
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -320,13 +391,13 @@ SOLD
 
 ---
 
-# 4. Clients Module
+# 6. Clients Module
 
 ---
 
-# GET /clients
+## GET /clients
 
-## Query Parameters
+### Query Parameters
 
 | Parameter | Type    |
 | --------- | ------- |
@@ -336,7 +407,7 @@ SOLD
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -350,9 +421,9 @@ SOLD
 
 ---
 
-# GET /clients/{id}
+## GET /clients/{id}
 
-## Response
+### Response
 
 ```json
 {
@@ -368,9 +439,9 @@ SOLD
 
 ---
 
-# POST /clients
+## POST /clients
 
-## Request Payload
+### Request Payload
 
 ```json
 {
@@ -382,23 +453,23 @@ SOLD
 
 ---
 
-## Validation Rules
+### Validation Rules
 
-### name
+#### name
 
 ```text
 Required
 Max Length: 100
 ```
 
-### email
+#### email
 
 ```text
 Optional
 Must be valid email
 ```
 
-### phone
+#### phone
 
 ```text
 Optional
@@ -407,7 +478,7 @@ Max Length: 30
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -420,13 +491,13 @@ Max Length: 30
 
 ---
 
-# 5. Viewings Module
+# 7. Viewings Module
 
 ---
 
-# GET /viewings
+## GET /viewings
 
-## Query Parameters
+### Query Parameters
 
 | Parameter  | Type    |
 | ---------- | ------- |
@@ -438,7 +509,7 @@ Max Length: 30
 
 ---
 
-## Allowed Status Values
+### Allowed Status Values
 
 ```text
 BOOKED
@@ -448,7 +519,7 @@ COMPLETED
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -461,9 +532,9 @@ COMPLETED
 
 ---
 
-# POST /viewings
+## POST /viewings
 
-## Request Payload
+### Request Payload
 
 ```json
 {
@@ -476,30 +547,30 @@ COMPLETED
 
 ---
 
-## Validation Rules
+### Validation Rules
 
-### propertyId
-
-```text
-Required
-Must exist
-```
-
-### clientId
+#### propertyId
 
 ```text
 Required
 Must exist
 ```
 
-### dateTime
+#### clientId
+
+```text
+Required
+Must exist
+```
+
+#### dateTime
 
 ```text
 Required
 Valid ISO Date
 ```
 
-### status
+#### status
 
 Allowed:
 
@@ -511,7 +582,7 @@ COMPLETED
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -524,7 +595,7 @@ COMPLETED
 
 ---
 
-## Errors
+### Errors
 
 ```json
 {
@@ -538,19 +609,19 @@ COMPLETED
 
 ---
 
-# 6. Tasks Module
+# 8. Tasks Module
 
 ---
 
-# GET /tasks
+## GET /tasks
 
-## Purpose
+### Purpose
 
 Supports Workflow Command Centre.
 
 ---
 
-## Query Parameters
+### Query Parameters
 
 | Parameter | Type    |
 | --------- | ------- |
@@ -562,7 +633,7 @@ Supports Workflow Command Centre.
 
 ---
 
-## Allowed Types
+### Allowed Types
 
 ```text
 VIEWING
@@ -575,7 +646,7 @@ PROGRESSION
 
 ---
 
-## Allowed Statuses
+### Allowed Statuses
 
 ```text
 PENDING
@@ -585,7 +656,7 @@ COMPLETED
 
 ---
 
-## Allowed Priorities
+### Allowed Priorities
 
 ```text
 LOW
@@ -596,7 +667,7 @@ URGENT
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -609,15 +680,15 @@ URGENT
 
 ---
 
-# PATCH /tasks/{id}
+## PATCH /tasks/{id}
 
-## Purpose
+### Purpose
 
 Update task status.
 
 ---
 
-## Request Payload
+### Request Payload
 
 ```json
 {
@@ -627,7 +698,7 @@ Update task status.
 
 ---
 
-## Validation
+### Validation
 
 Allowed:
 
@@ -639,7 +710,7 @@ COMPLETED
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -653,7 +724,7 @@ COMPLETED
 
 ---
 
-## Errors
+### Errors
 
 ```json
 {
@@ -667,13 +738,13 @@ COMPLETED
 
 ---
 
-# 7. Notifications Module
+# 9. Notifications Module
 
 ---
 
-# GET /notifications
+## GET /notifications
 
-## Query Parameters
+### Query Parameters
 
 | Parameter | Type    |
 | --------- | ------- |
@@ -683,7 +754,7 @@ COMPLETED
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -696,21 +767,21 @@ COMPLETED
 
 ---
 
-# PATCH /notifications/{id}/read
+## PATCH /notifications/{id}/read
 
-## Purpose
+### Purpose
 
 Mark notification as read.
 
 ---
 
-## Request
+### Request
 
 No body required.
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -724,7 +795,7 @@ No body required.
 
 ---
 
-## Errors
+### Errors
 
 ```json
 {
@@ -738,19 +809,19 @@ No body required.
 
 ---
 
-# 8. Calendar Events Module
+# 10. Calendar Events Module
 
 ---
 
-# GET /calendar-events
+## GET /calendar-events
 
-## Purpose
+### Purpose
 
 Supports Upcoming Activities widget.
 
 ---
 
-## Query Parameters
+### Query Parameters
 
 | Parameter | Type     |
 | --------- | -------- |
@@ -760,7 +831,7 @@ Supports Upcoming Activities widget.
 
 ---
 
-## Allowed Statuses
+### Allowed Statuses
 
 ```text
 CONFIRMED
@@ -771,7 +842,7 @@ DUE_TODAY
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -792,13 +863,11 @@ DUE_TODAY
 
 ---
 
-# 9. Search Module
+# 11. Search Module
 
----
+## GET /search
 
-# GET /search
-
-## Purpose
+### Purpose
 
 Global dashboard search.
 
@@ -809,7 +878,7 @@ Supports:
 
 ---
 
-## Query Parameters
+### Query Parameters
 
 | Parameter | Type   | Required |
 | --------- | ------ | -------- |
@@ -817,7 +886,7 @@ Supports:
 
 ---
 
-## Example
+### Example
 
 ```http
 GET /api/v1/search?q=zenith
@@ -825,9 +894,9 @@ GET /api/v1/search?q=zenith
 
 ---
 
-## Validation Rules
+### Validation Rules
 
-### q
+#### q
 
 ```text
 Required
@@ -837,7 +906,7 @@ Maximum Length: 100
 
 ---
 
-## Response
+### Response
 
 ```json
 {
@@ -861,7 +930,7 @@ Maximum Length: 100
 
 ---
 
-## Errors
+### Errors
 
 ```json
 {
@@ -875,10 +944,12 @@ Maximum Length: 100
 
 ---
 
-# 10. Common Error Codes
+# 12. Common Error Codes
 
 | Code                   | Description                |
 | ---------------------- | -------------------------- |
+| INVALID_CREDENTIALS    | Invalid login credentials  |
+| UNAUTHORIZED           | Missing or invalid JWT     |
 | VALIDATION_ERROR       | Request validation failed  |
 | RESOURCE_NOT_FOUND     | Generic missing resource   |
 | PROPERTY_NOT_FOUND     | Property missing           |
@@ -891,7 +962,7 @@ Maximum Length: 100
 
 ---
 
-# 11. Pagination Standard
+# 13. Pagination Standard
 
 Applicable To:
 
@@ -929,10 +1000,11 @@ limit = 100
 
 ---
 
-# 12. Final API Surface
+# 14. Final API Surface
 
 | Method | Endpoint                 |
 | ------ | ------------------------ |
+| POST   | /auth/login              |
 | GET    | /dashboard               |
 | GET    | /properties              |
 | GET    | /properties/{id}         |
@@ -952,7 +1024,7 @@ limit = 100
 ### Total Endpoints
 
 ```text
-14 REST endpoints
+15 REST endpoints
 ```
 
 This API surface is intentionally minimal and fully aligned with the approved MVP, database design, dashboard requirements, React Query strategy, and 24-hour implementation constraint. It provides complete support for the dashboard UI while avoiding unnecessary complexity or future-scope functionality.

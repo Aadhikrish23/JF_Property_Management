@@ -264,23 +264,26 @@ Reduces frontend complexity while demonstrating modern React practices.
 
 ---
 
-## 4.6 No Authentication Complexity
+## 4.6  Authentication Assumption
 
-### Assumption
+A lightweight JWT-based authentication layer has been implemented
+to satisfy assessment requirements.
 
-Authentication is not evaluated in this assessment.
+The implementation includes:
 
-### Justification
+- Login endpoint
+- JWT token issuance
+- Protected API routes
+- Client-side route protection
+- Logout
 
-The dashboard screenshots do not contain:
+The implementation intentionally omits:
 
-* login screens
-* permissions
-* access management
-
-A simple demo user assumption is sufficient.
-
----
+- RBAC
+- Refresh tokens
+- Password reset
+- MFA
+- OAuth
 
 # 5. Scope Exclusions
 
@@ -288,19 +291,33 @@ The following features are intentionally excluded.
 
 ---
 
-## Authentication & Authorization
+## Authentication Assumptions
 
-Excluded:
+The assessment implementation includes a lightweight JWT authentication system.
 
-* Login
+### Implemented
+
+* Login endpoint
+* JWT token issuance
+* Protected API routes
+* Axios authentication interceptor
+* Client-side route protection
+* Logout functionality
+
+The authentication implementation is intentionally simplified for assessment purposes.
+
+### Excluded
+
 * Registration
-* Password management
-* Role permissions
-* Session management
+* Password reset
+* OAuth
+* MFA
+* Refresh tokens
+* RBAC
+* User management workflows
 
-Reason:
+The objective is to demonstrate secure route protection rather than a complete identity platform.
 
-Not visible in supplied screens.
 
 ---
 
@@ -772,13 +789,15 @@ The MVP implementation will therefore include:
 
 Out of Scope:
 
-- Authentication
-- Authorization
-- RBAC
-- OAuth
-- MFA
-- Advanced security infrastructure
+* RBAC
+* OAuth
+* MFA
+* Refresh tokens
+* Password reset
+* Advanced security infrastructure
 
-These are excluded due to assessment scope and timeline constraints.
+Authentication and basic authorization are implemented through JWT-based route protection to satisfy assessment requirements.
+
+The advanced security capabilities listed above are excluded due to assessment scope and timeline constraints.
 
 The resulting solution is a pragmatic, assessment-appropriate architecture that accurately reproduces the supplied dashboard experience, demonstrates competency in React, Node.js, PostgreSQL, and Prisma, and remains achievable by a single engineer within a 24-hour implementation window.

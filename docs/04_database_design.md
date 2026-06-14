@@ -16,9 +16,32 @@ Goals:
 * Support realistic relational modeling
 * Remain achievable within a 24-hour assessment
 
+Authentication is implemented using a lightweight JWT-based approach.
+
+The User entity stores:
+
+* Email
+* Role
+* Password Hash
+
+Authentication responsibilities include:
+
+* Login credential verification
+* JWT token generation
+* Protected API access
+
+Advanced identity management remains intentionally out of scope:
+
+* OAuth
+* MFA
+* Password reset workflows
+* SSO
+* Refresh token rotation
+* RBAC
+
+
 Explicitly Excluded:
 
-* Authentication systems
 * Role permission frameworks
 * AI engines
 * Event processing
@@ -28,6 +51,7 @@ Explicitly Excluded:
 * Vendor/Tenant portals
 
 ---
+
 
 # 2. Database Overview
 
@@ -134,6 +158,7 @@ users
 | id         | UUID         | No       | Primary key   |
 | name       | VARCHAR(100) | No       | Full name     |
 | email      | VARCHAR(255) | No       | Unique email  |
+| password   | VARCHAR(255) | No       | Password      |
 | role       | VARCHAR(50)  | No       | User role     |
 | created_at | TIMESTAMP    | No       | Creation date |
 | updated_at | TIMESTAMP    | No       | Last update   |

@@ -122,9 +122,9 @@ No business logic.
 
 # 3. Backend Architecture
 
-## Architectural Pattern
+### Architectural Style
 
-Layered Architecture
+The backend follows a modular Controller-Service architecture.
 
 ```text
 Routes
@@ -136,60 +136,141 @@ Controllers
 Services
    │
    ▼
-Prisma Repository Access
+Prisma ORM
    │
    ▼
 PostgreSQL
 ```
 
----
+### Routes Layer
 
-## Responsibilities
+Located in:
 
-### Routes
+```text
+src/modules/*/*.routes.ts
+```
 
-Handle:
+Responsibilities:
 
-* URL mapping
-* Request forwarding
+* Define API endpoints
+* Attach middleware
+* Forward requests to controllers
 
-No business logic.
+No business logic is implemented at this layer.
 
----
+### Controller Layer
 
-### Controllers
+Located in:
 
-Handle:
+```text
+src/modules/*/*.controller.ts
+```
 
-* Request parsing
-* Validation execution
-* Response formatting
+Responsibilities:
 
----
+* Parse request parameters
+* Handle HTTP concerns
+* Format responses
+* Delegate work to services
 
-### Services
+Controllers remain intentionally thin.
 
-Contain:
+### Service Layer
 
-* Business rules
+Located in:
+
+```text
+src/modules/*/*.service.ts
+```
+
+Responsibilities:
+
+* Business logic
 * Data aggregation
-* Dashboard composition
+* Workflow processing
+* Database interaction through Prisma
 
----
+### Validation Layer
 
-### Prisma Layer
+Located in:
 
-Responsible for:
+```text
+src/validators/
+```
 
-* Database interaction
+Responsibilities:
 
-No business rules.
+* Request validation
+* Input sanitization
+* Schema enforcement using Zod
 
----
+### Middleware Layer
+
+Located in:
+
+```text
+src/middleware/
+```
+
+Responsibilities:
+
+* JWT authentication
+* Error handling
+* Request processing
+
+### Shared Layer
+
+Located in:
+
+```text
+src/shared/
+src/utils/
+```
+
+Responsibilities:
+
+* Common utilities
+* JWT helpers
+* Shared application functionality
+
+### Authentication Architecture
+
+The application implements JWT-based authentication.
+
+Flow:
+
+```text
+Login Request
+      ↓
+Credential Validation
+      ↓
+JWT Generation
+      ↓
+Client Storage
+      ↓
+Axios Authorization Header
+      ↓
+Protected Backend Routes
+```
+
+Protected routes validate incoming Bearer tokens using middleware before executing business logic.
 
 # 4. Module Boundaries
 
+## Authentication Module
+
+Purpose:
+
+User authentication and route protection.
+
+Endpoints:
+
+```text
+POST /auth/login
+
+```
 ---
+
 
 ## Dashboard Module
 
@@ -320,6 +401,7 @@ GET /search
 ```text
 src/
 ├── modules/
+│   ├── auth/
 │   ├── dashboard/
 │   ├── properties/
 │   ├── clients/
@@ -381,6 +463,7 @@ Fields:
 id
 name
 email
+password
 role
 createdAt
 ```
@@ -971,6 +1054,7 @@ Duration:
 
 Tasks:
 
+* Authentication
 * Properties
 * Clients
 * Viewings
