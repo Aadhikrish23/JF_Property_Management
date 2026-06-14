@@ -18,6 +18,19 @@ import searchRouter from './modules/search/search.routes';
 
 const app: Application = express();
 
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'JF Property Management API',
+  });
+});
+
+app.get('/health', (_req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+  });
+});
+
 // 1. Register Global Middlewares
 
 // helmet — sets security-relevant HTTP response headers
