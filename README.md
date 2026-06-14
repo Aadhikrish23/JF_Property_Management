@@ -311,6 +311,39 @@ A detailed report covering technical trade-offs, scope definitions, design conte
 ### Main Dashboard (Dark Theme)
 ![Dashboard Dark Mode](docs/screenshots/dashboard_dark.png)
 
+## Live Demo
+
+Frontend Application:
+
+https://jf-property-management.vercel.app/
+
+---
+
+## Documentation
+
+Project documentation is available in the `/docs` directory.
+
+| Document | Description |
+|-----------|-------------|
+| 00_project_summary.md | Project overview and goals |
+| 01_business_analysis.md | Business requirements analysis |
+| 02_scope_control.md | Scope definition and exclusions |
+| 03_architecture.md | System architecture |
+| 04_database_design.md | Database design |
+| 05_api_design.md | REST API specification |
+| 06_assumptions.md | Technical assumptions |
+| 07_security_review.md | Security review |
+| 08_known_limitations.md | Known limitations |
+| 09_walkthrough.md | Application walkthrough with screenshots |
+
+## Walkthrough
+
+A complete application walkthrough is available in:
+
+
+[walkthrough.md](docs/09_walkthrough.md)
+
+
 ---
 ## Author
-**Aadhi Narayanan**
+**Aadhinarayanan**
