@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import {
   PageContainer, Card, Table, TableHead, TableBody, TableRow, TableHeader, TableCell,
-  Pagination, Select, LoadingSpinner, EmptyState, Badge
-} from '../../../components';
+  Pagination, Select, LoadingSpinner, EmptyState} from '../../../components';
 import { useTasks, useUpdateTaskStatus } from '../hooks';
 import type { TaskType, TaskStatus, TaskPriority } from '../types';
 

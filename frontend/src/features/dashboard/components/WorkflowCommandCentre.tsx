@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import type { Task } from '../types';
 
 const WORKFLOW_TABS = [
@@ -17,11 +17,6 @@ const PRIORITY_COLORS: Record<string, string> = {
   LOW: 'bg-gray-100 text-gray-600',
 };
 
-const STATUS_COLORS: Record<string, string> = {
-  PENDING: 'bg-yellow-100 text-yellow-700',
-  IN_PROGRESS: 'bg-blue-100 text-blue-700',
-  COMPLETED: 'bg-green-100 text-green-700',
-};
 
 const TYPE_COLORS: Record<string, string> = {
   VIEWING: 'bg-purple-100 text-purple-700',

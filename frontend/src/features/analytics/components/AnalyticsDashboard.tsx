@@ -1,4 +1,3 @@
-import React from 'react';
 import { PageContainer, Card, LoadingSpinner, EmptyState } from '../../../components';
 import { useProperties } from '../../properties';
 import { useClients } from '../../clients';

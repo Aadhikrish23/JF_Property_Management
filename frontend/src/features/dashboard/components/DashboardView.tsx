@@ -1,4 +1,3 @@
-import React from 'react';
 import { LoadingSpinner } from '../../../components';
 import { useDashboardData } from '../hooks';
 import { QuickActions } from './QuickActions';

@@ -1,4 +1,4 @@
-import type { PaginatedResponse, ApiResponse } from '../../types';
+import type { PaginatedResponse } from '../../types';
 
 export interface User {
   id: string;

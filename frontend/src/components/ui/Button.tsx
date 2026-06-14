@@ -1,4 +1,4 @@
-import React, { type ButtonHTMLAttributes, forwardRef } from 'react';
+import  { type ButtonHTMLAttributes, forwardRef } from 'react';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'danger' | 'ghost';

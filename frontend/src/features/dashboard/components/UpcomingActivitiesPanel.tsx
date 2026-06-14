@@ -1,4 +1,3 @@
-import React from 'react';
 import type { UpcomingActivity } from '../types';
 
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
